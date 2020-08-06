@@ -6,7 +6,7 @@ sources:
   repo: git@github.com:classyllama/devenv-vagrant.git
   sparse_paths:
   -
-  rev: el8-support
+  rev: 0.1
   link:
   scripts:
   - ./gitman_init.sh
