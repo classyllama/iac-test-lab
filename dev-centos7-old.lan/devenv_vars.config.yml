@@ -1,0 +1,95 @@
+---
+
+##### ---------------------------
+# dev-centos7-old.lan
+##### ---------------------------
+# Old on CentOS 7
+# Magento 2.2.11
+#
+# CentOS 7
+# PHP 7.1
+# Nginx 1.16
+# MySQL 5.6
+# ElasticSearch 6.x
+# Varnish 4.x
+# Redis 3.x
+
+app_domain: dev-centos7-old.lan
+
+magento_demo_config_overrides:
+  MAGENTO_COMPOSER_PROJECT: magento/project-community-edition
+  MAGENTO_REL_VER: 2.2.11
+  REDIS_OBJ_HOST: "localhost"
+  REDIS_OBJ_PORT: "6379"
+  REDIS_OBJ_DB: "0"
+  REDIS_SES_HOST: "localhost"
+  REDIS_SES_PORT: "6379"
+  REDIS_SES_DB: "1"
+  REDIS_FPC_HOST: "localhost"
+  REDIS_FPC_PORT: "6379"
+  REDIS_FPC_DB: "2"
+  VARNISH_HOST: "localhost"
+  VARNISH_PORT: "6081"
+  SEARCH_ENGINE: "mysql"
+
+use_classyllama_repo_ius: true
+use_geerlingguy_repo_remi: false
+use_classyllama_repo_php_appstream: false
+use_classyllama_repo_php_remi_modular: false
+php_version: 71
+php_enablerepo: "ius-archive"
+php_package_name_extra: "71u"
+
+php_default_modules:
+  - bcmath
+  - cli
+  - common
+  - devel
+  - fpm
+  - gd
+  - intl
+  - json
+  - mbstring
+  - mcrypt      # installed on 7.1 and prior
+  - sodium      # installed on 7.2 and later
+  - mysqlnd
+  - opcache
+  - pdo
+  - pecl-redis
+  - process
+  - soap
+  - xml
+  - xmlrpc
+  # - pecl-zip # Built into php core on IUS php71u binary
+  # - pear # Requirement for PECL
+php_additional_modules: []
+  # - xdebug
+  # - pecl-imagick
+
+use_classyllama_repo_python_appstream: false
+python_package_name: python # CentOS 7 uses Python 2.7
+python_software_packages: 
+  - "{{ python_package_name }}"
+  - "{{ python_package_name }}-pip"
+  - "{{ python_package_name }}-devel"
+  - "MySQL-python" # Python 2.7 MySQL library package
+
+use_classyllama_mariadb: false
+use_classyllama_percona: true
+percona_version: 56
+
+use_classyllama_repo_varnish: true
+use_classyllama_varnish: true
+varnish_version: 41
+
+use_classyllama_repo_nginx: true
+use_classyllama_repo_nginx_appstream: false
+nginx_stream_version: "1.16"
+
+use_classyllama_multi_redis: true
+redis_package_name: "redis32u"
+redis_enablerepo: "ius-archive"
+redis_version: 32
+
+use_elastic_elasticsearch: true
+es_version: 6.8.0
