@@ -1,0 +1,11 @@
+location: repo_sources
+sources:
+  - name: stageenv
+    type: git
+    repo: git@github.com:alpacaglue/exp-magento2-stageenv.git
+    sparse_paths:
+      -
+    rev: master
+    link:
+    scripts:
+      - ./gitman_init_embedded.sh

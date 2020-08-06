@@ -1,0 +1,13 @@
+/repo_sources/*
+/source
+
+*.tfvars
+!*.auto.tfvars
+*.tfstate.lock.info
+*.tfstate.backup
+*.tfstate.*.backup
+
+/terraform.tfstate
+/inventories/*
+/ssh-keys/*
+/README.md
