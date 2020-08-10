@@ -1,0 +1,12 @@
+{
+  "CONFIG_NAME": "{{ laravel_demo_config_name }}",
+  "SITE_HOSTNAME": "{{ laravel_demo_hostname }}",
+  "ENV_ROOT_DIR": "{{ laravel_demo_env_root }}",
+  "LARAVEL_ROOT_DIR": "{{ laravel_demo_app_root }}"
+  
+{% if laravel_demo_config_overrides|length > 0 %}
+{% for key, value in laravel_demo_config_overrides.items() | list %}
+  ,"{{ key }}": "{{ value }}"
+{% endfor %}
+{% endif %}
+}

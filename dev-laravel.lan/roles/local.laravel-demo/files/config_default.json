@@ -1,0 +1,17 @@
+{
+  "CONFIG_NAME": "example",
+  "SITE_HOSTNAME": "example.lan",
+  "ENV_ROOT_DIR": "/var/www/data",
+  "LARAVEL_ROOT_DIR": "/var/www/data/laravel",
+  
+  
+  
+  "SITE_ROOT_DIR": "current",
+  
+  "REDIS_OBJ_HOST": "localhost",
+  "REDIS_OBJ_PORT": "6379",
+  "REDIS_OBJ_DB": "0",
+  "REDIS_SES_HOST": "localhost",
+  "REDIS_SES_PORT": "6379",
+  "REDIS_SES_DB": "1"
+}

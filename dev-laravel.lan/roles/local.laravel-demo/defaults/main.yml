@@ -1,0 +1,18 @@
+---
+# Required variables
+laravel_demo_hostname: example.lan
+laravel_demo_env_root: /var/www/data
+laravel_demo_app_root: /var/www/data/laravel
+laravel_demo_user: www-data
+laravel_demo_group: www-data
+laravel_demo_scripts_dir: "/home/{{ laravel_demo_user }}/laravel-demo"
+laravel_demo_config_name: "site"
+
+# Optional list of additional configs from config_default.json to override
+laravel_demo_config_overrides: {}
+# Example:
+# laravel_demo_config_overrides:
+#   LARAVEL_COMPOSER_PROJECT: xxxxxxxxxxx
+#   LARAVEL_REL_VER: 6.0
+#   SHOULD_SETUP_SAMPLE_DATA: false
+#   SHOULD_RUN_CUSTOM_SCRIPT: false

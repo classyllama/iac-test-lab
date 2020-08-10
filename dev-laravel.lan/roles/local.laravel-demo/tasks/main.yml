@@ -1,0 +1,38 @@
+---
+
+- name: Create Laravel Demo script directory
+  file:
+    path: "{{ laravel_demo_scripts_dir }}"
+    state: directory
+    owner: "{{ laravel_demo_user }}"
+    group: "{{ laravel_demo_group }}"
+    mode: 0750
+
+- name: Copy Laravel Demo install/uninstall scripts
+  copy:
+    src: "{{ item }}"
+    dest: "{{ laravel_demo_scripts_dir }}/{{ item }}"
+    owner: "{{ laravel_demo_user }}"
+    group: "{{ laravel_demo_group }}"
+    mode: 0750
+  with_items:
+    - install-laravel.sh
+    - uninstall-laravel.sh
+
+- name: Copy Laravel Demo default config
+  copy:
+    src: "{{ item }}"
+    dest: "{{ laravel_demo_scripts_dir }}/{{ item }}"
+    owner: "{{ laravel_demo_user }}"
+    group: "{{ laravel_demo_group }}"
+    mode: 0640
+  with_items:
+    - config_default.json
+
+- name: Create Laravel Demo site config file
+  template:
+    src: config_site.json.j2
+    dest: "{{ laravel_demo_scripts_dir }}/config_{{ laravel_demo_config_name }}.json"
+    owner: "{{ laravel_demo_user }}"
+    group: "{{ laravel_demo_group }}"
+    mode: 0640

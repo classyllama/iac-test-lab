@@ -24,3 +24,11 @@ TODO
 ### Production Environment
 TODO
   [ ] Create reference prod environment
+
+## License
+
+This work is licensed under the MIT license. See LICENSE file for details.
+
+## Author Information
+
+This reference was created in 2020 by [Matt Johnson](https://github.com/mttjohnson/).
