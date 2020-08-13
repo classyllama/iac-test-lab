@@ -14,8 +14,12 @@
 # Varnish 4.x
 # Redis 3.x
 
+
+# --- System Configs
 app_domain: dev-centos7-old.lan
 
+
+# --- Magento Demo Install
 magento_demo_config_overrides:
   MAGENTO_COMPOSER_PROJECT: magento/project-community-edition
   MAGENTO_REL_VER: 2.2.11
@@ -32,6 +36,8 @@ magento_demo_config_overrides:
   VARNISH_PORT: "6081"
   SEARCH_ENGINE: "mysql"
 
+
+# --- Tech Stack (Services) Configuration
 use_classyllama_repo_ius: true
 use_geerlingguy_repo_remi: false
 use_classyllama_repo_php_appstream: false
@@ -39,7 +45,6 @@ use_classyllama_repo_php_remi_modular: false
 php_version: 71
 php_enablerepo: "ius-archive"
 php_package_name_extra: "71u"
-
 php_default_modules:
   - bcmath
   - cli
@@ -62,8 +67,8 @@ php_default_modules:
   - xmlrpc
   # - pecl-zip # Built into php core on IUS php71u binary
   # - pear # Requirement for PECL
-php_additional_modules: []
-  # - xdebug
+php_additional_modules:
+  - xdebug
   # - pecl-imagick
 
 use_classyllama_repo_python_appstream: false
@@ -93,3 +98,7 @@ redis_version: 32
 
 use_elastic_elasticsearch: true
 es_version: 6.8.0
+
+
+# --- Additional Tools Configuration
+use_create_www_projects_dir: false

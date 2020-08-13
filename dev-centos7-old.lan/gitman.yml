@@ -1,13 +1,23 @@
-
 location: repo_sources
 sources:
-- name: devenv
-  type: git
-  repo: git@github.com:classyllama/devenv-vagrant.git
-  sparse_paths:
+  - name: devenv
+    type: git
+    repo: git@github.com:classyllama/devenv-vagrant.git
+    sparse_paths:
+      -
+    rev: 0.2.2
+    link:
+    scripts:
+      - ./gitman_init.sh
+sources_locked:
+  - name: devenv
+    type: git
+    repo: git@github.com:classyllama/devenv-vagrant.git
+    sparse_paths:
+      -
+    rev: e5ca85c66c5f0beeced89869a00c7966578e785f
+    link:
+    scripts:
+      - ./gitman_init.sh
+groups:
   -
-  rev: 0.1
-  link:
-  scripts:
-  - ./gitman_init.sh
-

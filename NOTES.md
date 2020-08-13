@@ -1,6 +1,8 @@
 
 # Building DevEnv Test Configs
 
+Magento
+
     cd ~/projects/test-lab/dev-centos8-min.lan/
     vagrant halt && vagrant destroy -f
     (cd source/ && git pull)
@@ -31,6 +33,8 @@
     time (vagrant up && vagrant ssh -c "~/magento-demo/install-magento.sh config_site.json" -- -q)
     (cd source/provisioning/ && ansible-playbook -i ../persistent/inventory/devenv cache_sync.yml --diff)
 
+Laravel
+
     cd ~/projects/test-lab/dev-laravel.lan/
     vagrant halt && vagrant destroy -f
     (cd source/ && git pull)
@@ -39,7 +43,7 @@
 
 # Re-run Ansible Provisioning Playbook and Other Playbooks
 
-    cd source/
+    cd source/provisioning/
     ansible-playbook -i ../persistent/inventory/devenv virtualbox.yml --diff
     ansible-playbook -i ../persistent/inventory/devenv cache_sync.yml --diff
 

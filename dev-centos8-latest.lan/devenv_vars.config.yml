@@ -14,8 +14,12 @@
 # Varnish 6.x
 # Redis 5.x
 
+
+# --- System Configs
 app_domain: dev-centos8-latest.lan
 
+
+# --- Magento Demo Install
 magento_demo_config_overrides:
   MAGENTO_COMPOSER_PROJECT: magento/project-community-edition
   MAGENTO_REL_VER: 2.4.0
@@ -33,7 +37,10 @@ magento_demo_config_overrides:
   ELASTIC_ENABLE_AUTH: "1"
   ELASTIC_USERNAME: "elastic"
   ELASTIC_PASSWORD: "changeme"
+  SHOULD_SETUP_TFA: "true"
 
+
+# --- Tech Stack (Services) Configuration
 use_classyllama_repo_ius: false
 use_geerlingguy_repo_remi: true
 use_classyllama_repo_php_appstream: false
@@ -42,7 +49,6 @@ php_stream_version: "remi-7.4"
 php_version: 74
 php_enablerepo: ""
 php_package_name_extra: ""
-
 php_default_modules:
   - bcmath
   - cli
@@ -97,4 +103,8 @@ redis_enablerepo: ""
 redis_version: 50
 
 use_elastic_elasticsearch: true
-es_version: 7.8.0
+es_version: 7.8.1
+
+
+# --- Additional Tools Configuration
+use_create_www_projects_dir: false

@@ -23,7 +23,7 @@ syseng_access_users:
 www_user_ssh_keys:
   - persistent/ssh-keys/matt.johnson
 
-app_domain: stage-do-centos7-latest.cldev.io
+app_domain: stage-do-centos8-min.cldev.io
 
 mysqld_datadir: /data/mysql
 
@@ -50,12 +50,12 @@ magento_demo_config_overrides:
 
 
 # --- Tech Stack (Services) Configuration
-use_classyllama_repo_ius: true
-use_geerlingguy_repo_remi: true
-use_classyllama_repo_php_appstream: false
-use_classyllama_repo_php_remi_modular: false
-php_version: 74
-php_enablerepo: "remi-php{{ php_version }}"
+use_classyllama_repo_ius: false
+use_geerlingguy_repo_remi: false
+use_classyllama_repo_php_appstream: true
+php_stream_version: "7.3"
+php_version: 73
+php_enablerepo: ""
 php_package_name_extra: ""
 php_default_modules:
   - bcmath
@@ -68,41 +68,69 @@ php_default_modules:
   - json
   - mbstring
   # - mcrypt      # installed on 7.1 and prior
-  - sodium      # installed on 7.2 and later
+  # - sodium      # installed on 7.2 and later - Not required - Not included in AppStream
   - mysqlnd
   - opcache
   - pdo
-  - pecl-redis # Not required
+  # - pecl-redis # Not required - Not included in AppStream
   - process
   - soap
   - xml
   - xmlrpc
-  - pecl-zip
+  # - pecl-zip # Required - Missing in CentoOS 8 AppStream
   - pear # Requirement for PECL
-php_additional_modules:
+php_additional_modules: []
   # - xdebug
-  - pecl-imagick
-use_imagemagick: true
+  # - pecl-imagick
+php_pecl_software_package_dependencies:
+  - libzip
+  - libzip-devel
+  # - libzstd
+  # - libzstd-devel
+  # - libsodium
+  # - libsodium-devel
+php_pecl_packages:
+  - pecl/zip
+  # - pecl/xdebug
+  # - pecl/igbinary
+  # - pecl/redis # Does not enable igbinary, lzf, or zstd compression support
+  #              # To enable compression support reference: https://gist.github.com/mttjohnson/935c047ba20ed6a79fa5b291e6b85455
+  # - pecl/libsodium
+php_pecl_extension_ini:
+  - dest: /etc/php.d/40-zip.ini
+    content: extension=zip.so
+  # - dest: "{{ php_xdebug_ini_path }}.disabled"
+  #   content: zend_extension=xdebug.so
+  # - dest: /etc/php.d/40-igbinary.ini
+  #   content: extension=igbinary.so
+  # - dest: /etc/php.d/40-redis.ini
+  #   content: extension=redis.so
+  # - dest: /etc/php.d/40-sodium.ini
+  #   content: extension=sodium.so
 
-use_classyllama_repo_python_appstream: false
-python_package_name: python # CentOS 7 uses Python 2.7
+use_classyllama_repo_python_appstream: true
+python3_stream_version: "3.6"
+python_module_name: python36
+python_package_name: python3
 python_software_packages: 
   - "{{ python_package_name }}"
   - "{{ python_package_name }}-pip"
   - "{{ python_package_name }}-devel"
-  - "MySQL-python" # Python 2.7 MySQL library package
+  - "{{ python_package_name }}-PyMySQL"
+python_pip_packages:
+  - segno # used for generating QR Code images for setting up 2FA OTP Authentication
 
-use_classyllama_mariadb: false
-use_classyllama_percona: true
-percona_version: 57
+use_classyllama_mariadb: true
+use_classyllama_percona: false
+mariadb_version: "10.3"
 
-use_classyllama_repo_varnish: true
+use_classyllama_repo_varnish: false
 use_classyllama_varnish: true
-varnish_version: 64
+varnish_version: "60lts"
 
-use_classyllama_repo_nginx: true
-use_classyllama_repo_nginx_appstream: false
-nginx_stream_version: "1.18"
+use_classyllama_repo_nginx: false
+use_classyllama_repo_nginx_appstream: true
+nginx_stream_version: "1.16"
 nginx_vhosts:
   - name: "{{ app_domain }}"
     pool: data
@@ -129,7 +157,7 @@ nginx_extras:
   - available.d/magento2.conf
 
 use_classyllama_multi_redis: true
-redis_package_name: "redis5"
+redis_package_name: "redis"
 redis_enablerepo: ""
 redis_version: 50
 
@@ -138,6 +166,7 @@ es_version: 7.8.1
 
 
 # --- Additional Tools Configuration
+use_imagemagick: false
 certbot_email: matt.johnson@classyllama.com
 certbot_domains:
   - "{{ app_domain }}"

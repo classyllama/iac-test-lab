@@ -1,0 +1,4 @@
+[app]
+stage-do-centos8-min_app	 ansible_host=157.245.183.6
+[stage_do_centos8_min:children]
+app

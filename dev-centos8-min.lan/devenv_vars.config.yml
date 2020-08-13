@@ -21,8 +21,12 @@
 # Note on PECL install of php-pecl-zip due to package missing in official yum repos
 #
 
+
+# --- System Configs
 app_domain: dev-centos8-min.lan
 
+
+# --- Magento Demo Install
 magento_demo_config_overrides:
   MAGENTO_COMPOSER_PROJECT: magento/project-community-edition
   MAGENTO_REL_VER: 2.3.5-p2
@@ -41,6 +45,8 @@ magento_demo_config_overrides:
   ELASTIC_USERNAME: "elastic"
   ELASTIC_PASSWORD: "changeme"
 
+
+# --- Tech Stack (Services) Configuration
 use_classyllama_repo_ius: false
 use_geerlingguy_repo_remi: false
 use_classyllama_repo_php_appstream: true
@@ -48,7 +54,6 @@ php_stream_version: "7.3"
 php_version: 73
 php_enablerepo: ""
 php_package_name_extra: ""
-
 php_default_modules:
   - bcmath
   - cli
@@ -77,11 +82,28 @@ php_additional_modules: []
 php_pecl_software_package_dependencies:
   - libzip
   - libzip-devel
+  # - libzstd
+  # - libzstd-devel
+  # - libsodium
+  # - libsodium-devel
 php_pecl_packages:
   - pecl/zip
+  - pecl/xdebug
+  # - pecl/igbinary
+  # - pecl/redis # Does not enable igbinary, lzf, or zstd compression support
+  #              # To enable compression support reference: https://gist.github.com/mttjohnson/935c047ba20ed6a79fa5b291e6b85455
+  # - pecl/libsodium
 php_pecl_extension_ini:
   - dest: /etc/php.d/40-zip.ini
     content: extension=zip.so
+  - dest: "{{ php_xdebug_ini_path }}.disabled"
+    content: zend_extension=xdebug.so
+  # - dest: /etc/php.d/40-igbinary.ini
+  #   content: extension=igbinary.so
+  # - dest: /etc/php.d/40-redis.ini
+  #   content: extension=redis.so
+  # - dest: /etc/php.d/40-sodium.ini
+  #   content: extension=sodium.so
 
 use_classyllama_repo_python_appstream: true
 python3_stream_version: "3.6"
@@ -92,6 +114,8 @@ python_software_packages:
   - "{{ python_package_name }}-pip"
   - "{{ python_package_name }}-devel"
   - "{{ python_package_name }}-PyMySQL"
+python_pip_packages:
+  - segno # used for generating QR Code images for setting up 2FA OTP Authentication
 
 use_classyllama_mariadb: true
 use_classyllama_percona: false
@@ -111,4 +135,8 @@ redis_enablerepo: ""
 redis_version: 50
 
 use_elastic_elasticsearch: true
-es_version: 7.8.0
+es_version: 7.8.1
+
+
+# --- Additional Tools Configuration
+use_create_www_projects_dir: false
