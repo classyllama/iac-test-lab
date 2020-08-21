@@ -1,0 +1,145 @@
+---
+# CentOS 7 (6vCPU 16GB RAM) (nginx/varnish/php-fpm/mysql/elasticsearch/redis)
+#   Memory Allocation
+#     1024MB Varnish
+#     4GB MySQL
+#     1536MB ElasticSearch
+#     2GB Redis
+#
+#     4GB PHP-FPM (ondemand)
+#     3GB PHP cron (ondemand)
+varnish_data_storage_size: 1024M
+mysqld_memory_percentage: 25
+es_heap_size: "1536m"
+redis_obj_maxmem: 1536mb
+redis_ses_maxmem: 512mb
+php_fpm_pm_max_children: 15
+mysqld_max_connections: 50
+
+
+# --- System Configs
+syseng_access_users:
+  - { username: mjohnson, pubkey: persistent/ssh-keys/matt.johnson }
+www_user_ssh_keys:
+  - persistent/ssh-keys/matt.johnson
+
+app_domain: stage-do-centos7-upgrade.cldev.io
+
+mysqld_datadir: /data/mysql
+dbbackup_data_dir: /data/dbbackup
+
+
+# --- Magento Demo Configs
+magento_demo_config_overrides:
+  MAGENTO_COMPOSER_PROJECT: magento/project-community-edition
+  MAGENTO_REL_VER: "2.4.0"
+  REDIS_OBJ_HOST: "localhost"
+  REDIS_OBJ_PORT: "6379"
+  REDIS_OBJ_DB: "0"
+  REDIS_SES_HOST: "localhost"
+  REDIS_SES_PORT: "6380"
+  REDIS_SES_DB: "0"
+  VARNISH_HOST: "localhost"
+  VARNISH_PORT: "6081"
+  SEARCH_ENGINE: "elasticsearch7"
+  ELASTIC_HOST: "localhost"
+  ELASTIC_PORT: "9200"
+  ELASTIC_ENABLE_AUTH: "1"
+  ELASTIC_USERNAME: "elastic"
+  ELASTIC_PASSWORD: "changeme"
+  SHOULD_SETUP_TFA: "true"
+
+
+# --- Tech Stack (Services) Configuration
+use_classyllama_repo_ius: true
+use_geerlingguy_repo_remi: true
+use_classyllama_repo_php_appstream: false
+use_classyllama_repo_php_remi_modular: false
+php_version: 74
+php_enablerepo: "remi-php{{ php_version }}"
+php_package_name_extra: ""
+php_default_modules:
+  - bcmath
+  - cli
+  - common
+  - devel
+  - fpm
+  - gd
+  - intl
+  - json
+  - mbstring
+  # - mcrypt      # installed on 7.1 and prior
+  - sodium      # installed on 7.2 and later
+  - mysqlnd
+  - opcache
+  - pdo
+  - pecl-redis # Not required
+  - process
+  - soap
+  - xml
+  - xmlrpc
+  - pecl-zip
+  - pear # Requirement for PECL
+php_additional_modules:
+  # - xdebug
+  - pecl-imagick
+
+use_classyllama_repo_python_appstream: false
+python_package_name: python # CentOS 7 uses Python 2.7
+python_software_packages: 
+  - "{{ python_package_name }}"
+  - "{{ python_package_name }}-pip"
+  - "{{ python_package_name }}-devel"
+  - "MySQL-python" # Python 2.7 MySQL library package
+
+use_classyllama_mariadb: false
+use_classyllama_percona: true
+percona_version: 57
+
+use_classyllama_repo_varnish: true
+use_classyllama_varnish: true
+varnish_version: 64
+
+use_classyllama_repo_nginx: true
+use_classyllama_repo_nginx_appstream: false
+nginx_stream_version: "1.18"
+nginx_vhosts:
+  - name: "{{ app_domain }}"
+    pool: data
+    params:
+      server_name: "{{ app_domain }}"
+      webroot: /var/www/data/current/pub
+      proxy_port: 6081
+    includes:
+      - available.d/magento2-static.conf
+nginx_backends:
+  - name: www-data
+    pool: data
+    listen: 8080
+    webroot: /var/www/data/current/pub
+    includes:
+      - default.d/nginx-status.conf
+      - available.d/realip.conf
+      - available.d/magento2.conf
+nginx_extras:
+  - { src: nginx/conf.d/default.conf,               dest: conf.d/default.conf }
+  - conf.d/map.conf
+  - available.d/realip.conf
+  - available.d/magento2-static.conf
+  - available.d/magento2.conf
+
+use_classyllama_multi_redis: true
+redis_package_name: "redis5"
+redis_enablerepo: ""
+redis_version: 50
+
+use_elastic_elasticsearch: true
+es_version: 7.8.1
+
+
+# --- Additional Tools Configuration
+use_create_www_projects_dir: false
+use_imagemagick: true
+certbot_email: matt.johnson@classyllama.com
+certbot_domains:
+  - "{{ app_domain }}"
