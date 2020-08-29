@@ -32,22 +32,19 @@ dbbackup_data_dir: /data/dbbackup
 # --- Magento Demo Configs
 magento_demo_config_overrides:
   MAGENTO_COMPOSER_PROJECT: magento/project-community-edition
-  MAGENTO_REL_VER: 2.3.5-p2
+  MAGENTO_REL_VER: 2.2.11
   REDIS_OBJ_HOST: "localhost"
   REDIS_OBJ_PORT: "6379"
   REDIS_OBJ_DB: "0"
   REDIS_SES_HOST: "localhost"
-  REDIS_SES_PORT: "6380"
-  REDIS_SES_DB: "0"
+  REDIS_SES_PORT: "6379"
+  REDIS_SES_DB: "1"
+  REDIS_FPC_HOST: "localhost"
+  REDIS_FPC_PORT: "6379"
+  REDIS_FPC_DB: "2"
   VARNISH_HOST: "localhost"
   VARNISH_PORT: "6081"
-  SEARCH_ENGINE: "elasticsearch7"
-  ELASTIC_HOST: "localhost"
-  ELASTIC_PORT: "9200"
-  ELASTIC_ENABLE_AUTH: "1"
-  ELASTIC_USERNAME: "elastic"
-  ELASTIC_PASSWORD: "changeme"
-  SHOULD_SETUP_TFA: "false"
+  SEARCH_ENGINE: "mysql"
 
 
 # --- Tech Stack (Services) Configuration
@@ -55,9 +52,9 @@ use_classyllama_repo_ius: true
 use_geerlingguy_repo_remi: false
 use_classyllama_repo_php_appstream: false
 use_classyllama_repo_php_remi_modular: false
-php_version: 73
+php_version: 72
 php_enablerepo: "ius"
-php_package_name_extra: "73u"
+php_package_name_extra: "72u"
 php_default_modules:
   - bcmath
   - cli
@@ -80,8 +77,8 @@ php_default_modules:
   - xmlrpc
   # - pecl-zip
 php_additional_modules:
-  # - xdebug
-  - pecl-imagick
+  - xdebug
+  # - pecl-imagick
 
 use_classyllama_repo_python_appstream: false
 python_package_name: python # CentOS 7 uses Python 2.7
@@ -133,7 +130,7 @@ redis_enablerepo: "ius-archive"
 redis_version: 32
 
 use_elastic_elasticsearch: true
-es_version: 7.7.0
+es_version: 6.8.0
 
 
 # --- Additional Tools Configuration

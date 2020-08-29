@@ -52,12 +52,12 @@ magento_demo_config_overrides:
 
 # --- Tech Stack (Services) Configuration
 use_classyllama_repo_ius: true
-use_geerlingguy_repo_remi: true
+use_geerlingguy_repo_remi: false
 use_classyllama_repo_php_appstream: false
 use_classyllama_repo_php_remi_modular: false
 php_version: 74
-php_enablerepo: "remi-php{{ php_version }}"
-php_package_name_extra: ""
+php_enablerepo: ""
+php_package_name_extra: "74"
 php_default_modules:
   - bcmath
   - cli

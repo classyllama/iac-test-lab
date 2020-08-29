@@ -1,19 +1,19 @@
 ---
-# CentOS 7 (2vCPU 4GB RAM) (nginx/varnish/php-fpm/mysql/elasticsearch/redis)
+# CentOS 7 (6vCPU 16GB RAM) (nginx/varnish/php-fpm/mysql/elasticsearch/redis)
 #   Memory Allocation
-#     512MB Varnish
-#     1GB MySQL
-#     512MB ElasticSearch
-#     1GB Redis
+#     1024MB Varnish
+#     4GB MySQL
+#     1536MB ElasticSearch
+#     2GB Redis
 #
-#     1GB PHP-FPM (ondemand)
-#     1GB PHP cron (ondemand)
-varnish_data_storage_size: 512M
+#     4GB PHP-FPM (ondemand)
+#     3GB PHP cron (ondemand)
+varnish_data_storage_size: 1024M
 mysqld_memory_percentage: 25
-es_heap_size: "512m"
-redis_obj_maxmem: 768mb
-redis_ses_maxmem: 256mb
-php_fpm_pm_max_children: 10
+es_heap_size: "1536m"
+redis_obj_maxmem: 1536mb
+redis_ses_maxmem: 512mb
+php_fpm_pm_max_children: 15
 mysqld_max_connections: 50
 
 
@@ -23,15 +23,16 @@ syseng_access_users:
 www_user_ssh_keys:
   - persistent/ssh-keys/matt.johnson
 
-app_domain: stage-do-centos7-latest.cldev.io
+app_domain: stage-do-centos7-upgrade.cldev.io
 
 mysqld_datadir: /data/mysql
+dbbackup_data_dir: /data/dbbackup
 
 
 # --- Magento Demo Configs
 magento_demo_config_overrides:
   MAGENTO_COMPOSER_PROJECT: magento/project-community-edition
-  MAGENTO_REL_VER: 2.4.0
+  MAGENTO_REL_VER: 2.3.5-p2
   REDIS_OBJ_HOST: "localhost"
   REDIS_OBJ_PORT: "6379"
   REDIS_OBJ_DB: "0"
@@ -46,7 +47,7 @@ magento_demo_config_overrides:
   ELASTIC_ENABLE_AUTH: "1"
   ELASTIC_USERNAME: "elastic"
   ELASTIC_PASSWORD: "changeme"
-  SHOULD_SETUP_TFA: "true"
+  SHOULD_SETUP_TFA: "false"
 
 
 # --- Tech Stack (Services) Configuration
@@ -54,9 +55,9 @@ use_classyllama_repo_ius: true
 use_geerlingguy_repo_remi: false
 use_classyllama_repo_php_appstream: false
 use_classyllama_repo_php_remi_modular: false
-php_version: 74
+php_version: 73
 php_enablerepo: ""
-php_package_name_extra: "74"
+php_package_name_extra: "73"
 php_default_modules:
   - bcmath
   - cli
@@ -67,17 +68,16 @@ php_default_modules:
   - intl
   - json
   - mbstring
-  # - mcrypt      # installed on 7.1 and prior
-  - sodium      # installed on 7.2 and later
   - mysqlnd
   - opcache
   - pdo
   - pecl-redis # Not required
   - process
+  - sodium # Not required
   - soap
   - xml
   - xmlrpc
-  - pecl-zip
+  # - pecl-zip
   # - pear # Requirement for PECL
 php_additional_modules:
   # - xdebug
@@ -101,7 +101,7 @@ varnish_version: 64
 
 use_classyllama_repo_nginx: true
 use_classyllama_repo_nginx_appstream: false
-nginx_stream_version: "1.18"
+nginx_stream_version: "1.16"
 nginx_vhosts:
   - name: "{{ app_domain }}"
     pool: data
@@ -137,6 +137,7 @@ es_version: 7.8.1
 
 
 # --- Additional Tools Configuration
+use_create_www_projects_dir: false
 use_imagemagick: true
 certbot_email: matt.johnson@classyllama.com
 certbot_domains:

@@ -15,7 +15,7 @@ sources_locked:
     repo: git@github.com:alpacaglue/exp-magento2-stageenv.git
     sparse_paths:
       -
-    rev: dc015a4365fb01611d5a0f741a9492d79e7e0c9c
+    rev: 3b47f14144841399e715930e4c2a11ab9a265805
     link:
     scripts:
       - ./gitman_init_embedded.sh
