@@ -32,7 +32,7 @@ dbbackup_data_dir: /data/dbbackup
 # --- Magento Demo Configs
 magento_demo_config_overrides:
   MAGENTO_COMPOSER_PROJECT: magento/project-community-edition
-  MAGENTO_REL_VER: 2.2.11
+  MAGENTO_REL_VER: 2.2.9
   REDIS_OBJ_HOST: "localhost"
   REDIS_OBJ_PORT: "6379"
   REDIS_OBJ_DB: "0"
@@ -45,6 +45,7 @@ magento_demo_config_overrides:
   VARNISH_HOST: "localhost"
   VARNISH_PORT: "6081"
   SEARCH_ENGINE: "mysql"
+  SHOULD_SETUP_TFA: "false"
 
 
 # --- Tech Stack (Services) Configuration
@@ -52,9 +53,9 @@ use_classyllama_repo_ius: true
 use_geerlingguy_repo_remi: false
 use_classyllama_repo_php_appstream: false
 use_classyllama_repo_php_remi_modular: false
-php_version: 72
-php_enablerepo: "ius"
-php_package_name_extra: "72u"
+php_version: 70
+php_enablerepo: "ius-archive"
+php_package_name_extra: "70u"
 php_default_modules:
   - bcmath
   - cli
@@ -64,6 +65,7 @@ php_default_modules:
   - gd
   - intl
   - json
+  - mcrypt
   - mbstring
   - mysqlnd
   - opcache
