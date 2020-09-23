@@ -65,26 +65,28 @@ DB_NAME=$(echo $(grep "^\s*database " ~/.my.cnf | cut -d= -f2 | perl -p -e 's/^\
 
 BASE_URL="https://${SITE_HOSTNAME}"
 
-# Setup Directories
-mkdir -p ${LARAVEL_ROOT_DIR}
-# Moving to App Install Directory
-echo "----: Move to Install Directory ${LARAVEL_ROOT_DIR}"
-cd ${LARAVEL_ROOT_DIR}
+
+# Moving to Environment Root Directory
+echo "----: Move to Environment Root ${ENV_ROOT_DIR}"
+cd ${ENV_ROOT_DIR}
 
 
 
 
 
 # Install Laravel Installer
+echo "----: Install Laravel Installer"
 composer global require laravel/installer
 
 # Add composer global vendor bin to user's profile PATH
+echo "----: Add composer global vendor bin to user's profile PATH"
 export PATH="/home/www-data/.composer/vendor/bin:$PATH"
 cat ~/.bash_profile | grep 'export PATH="/home/www-data/.composer/vendor/bin:$PATH"' || \
   echo -e "\n"'export PATH="/home/www-data/.composer/vendor/bin:$PATH"'"\n" >> ~/.bash_profile
 
 # Use Laravel Installer to setup new project
-laravel new
+echo "----: Setup new Laravel project"
+laravel new laravel
 
 # Use composer to setup new project
 # composer create-project --prefer-dist laravel/laravel
@@ -93,6 +95,9 @@ laravel new
 # - This is done automatically when installing using Laravel Installer or compoer create-project
 # php artisan key:generate
 
+# Moving to Application Root Directory
+echo "----: Move to Application Root ${LARAVEL_ROOT_DIR}"
+cd ${LARAVEL_ROOT_DIR}
 
 
 

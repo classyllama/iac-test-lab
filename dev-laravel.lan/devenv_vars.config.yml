@@ -120,3 +120,4 @@ use_classyllama_magento_demo: false
 use_current_to_app_install_symlink: true
 use_create_www_projects_dir: false
 use_create_www_app_install_dir: true
+load_magento_composer_auth_from_host: false
