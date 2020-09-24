@@ -29,7 +29,7 @@ app_domain: dev-centos8-min.lan
 # --- Magento Demo Install
 magento_demo_config_overrides:
   MAGENTO_COMPOSER_PROJECT: magento/project-community-edition
-  MAGENTO_REL_VER: 2.3.5-p2
+  MAGENTO_REL_VER: "2.4.0"
   REDIS_OBJ_HOST: "localhost"
   REDIS_OBJ_PORT: "6379"
   REDIS_OBJ_DB: "0"
@@ -44,7 +44,8 @@ magento_demo_config_overrides:
   ELASTIC_ENABLE_AUTH: "1"
   ELASTIC_USERNAME: "elastic"
   ELASTIC_PASSWORD: "changeme"
-
+  SHOULD_SETUP_SAMPLE_DATA: "true"
+  SHOULD_SETUP_TFA: "true"
 
 # --- Tech Stack (Services) Configuration
 use_classyllama_repo_ius: false
