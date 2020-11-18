@@ -1,0 +1,22 @@
+sync:
+  magento:
+    alpha: "../../"
+    beta: "www-data@dev-centos8-min.lan:/var/www/data/magento/"
+    mode: "two-way-resolved"
+    symlink:
+      mode: "ignore"
+    ignore:
+      vcs: true
+      paths:
+        - ".idea/*"
+        - "var/"
+        - "dev/"
+        - "phpserver/"
+        - "update/"
+        - "pub/media/"
+        - "pub/static/"
+        - "tools/devenv/*"
+        - "node_modules/"
+    permissions:
+      defaultFileMode: 664
+      defaultDirectoryMode: 0775
