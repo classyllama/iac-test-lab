@@ -31,7 +31,7 @@ mysqld_datadir: /data/mysql
 # --- Magento Demo Configs
 magento_demo_config_overrides:
   MAGENTO_COMPOSER_PROJECT: magento/project-community-edition
-  MAGENTO_REL_VER: 2.4.0
+  MAGENTO_REL_VER: 2.4.1
   REDIS_OBJ_HOST: "localhost"
   REDIS_OBJ_PORT: "6379"
   REDIS_OBJ_DB: "0"
@@ -133,7 +133,7 @@ redis_enablerepo: ""
 redis_version: 50
 
 use_elastic_elasticsearch: true
-es_version: 7.8.1
+es_version: 7.10.0
 
 
 # --- Additional Tools Configuration
