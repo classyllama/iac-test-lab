@@ -15,7 +15,7 @@ sources_locked:
     repo: git@github.com:classyllama/devenv-vagrant.git
     sparse_paths:
       -
-    rev: 79884cf117838edf07552c7c3f8e3953f8069338
+    rev: 7d587834907b579d3a2739e785f1e1b87d10e22e
     link:
     scripts:
       - ./gitman_init.sh

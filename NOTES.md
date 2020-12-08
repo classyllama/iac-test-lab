@@ -30,7 +30,7 @@ Magento
       gitman update
       
       #(cd source/ && git pull)
-      time (vagrant up && vagrant ssh -c "~/magento-demo/install-magento.sh config_site.json" -- -q)
+      #time (vagrant up && vagrant ssh -c "~/magento-demo/install-magento.sh config_site.json" -- -q)
       #(cd source/provisioning/ && ansible-playbook -i ../persistent/inventory/devenv cache_sync.yml --diff)
       cd ${currentDir}
     done
