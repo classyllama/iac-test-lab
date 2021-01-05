@@ -1,0 +1,80 @@
+{
+    "users":{
+        "read":0,
+        "write":0,
+        "admin":{
+            "email":"a@a.a",
+            "password":"1234"
+        },
+        "fields":[
+            {"name":"email", "type":"text not null"},
+            {"name":"password", "type":"text not null", "read":false},
+            {"name":"role", "type":"integer not null"},
+            {"name":"first_name", "type":"text"},
+            {"name":"last_name", "type":"text"}
+        ]
+    },
+    "teams":{
+        "read":0,
+        "write":0,
+        "fields":[
+            {"name":"name", "type":"text not null"}, 
+            {"name":"owner", "type":"integer"},
+            {"name":"settings", "type":"jsonb"},
+            {"name":"departments", "type":"jsonb"}
+        ]
+    },
+    "tables":[
+        {
+            "name":"products",
+            "read":1,
+            "write":0,
+            "fields":[
+                {"name":"name", "type":"text"},
+                {"name":"description", "type":"text"},
+                {"name":"options", "type":"jsonb"},
+                {"name":"tasks", "type":"jsonb"},
+                {"name":"pricing", "type":"jsonb"}
+            ]
+        },
+        {
+            "name":"clients",
+            "read":1,
+            "write":0,
+            "fields":[
+                {"name":"name", "type":"text"},
+                {"name":"pricing", "type":"text"},
+                {"name":"billing", "type":"jsonb"},
+                {"name":"shipping", "type":"jsonb"}
+            ]
+        },
+        {
+            "name":"contacts",
+            "read":1,
+            "write":0,
+            "fields":[
+                {"name":"name", "type":"text"},
+                {"name":"client", "type":"integer references clients"},
+                {"name":"pricing", "type":"text"},
+                {"name":"billing", "type":"jsonb"},
+                {"name":"shipping", "type":"jsonb"}
+            ]
+        },
+        {
+            "name":"orders",
+            "read":2,
+            "write":1,
+            "fields":[
+                {"name":"name", "type":"text"},
+                {"name":"manager", "type":"integer references users"},
+                {"name":"client", "type":"integer references clients"},
+                {"name":"shipping", "type":"jsonb"},
+                {"name":"line_items", "type":"jsonb"},
+                {"name":"total", "type":"integer"},
+                {"name":"log", "type":"jsonb"},
+                {"name":"created", "type":"timestamp default now()"},
+                {"name":"due", "type":"timestamp"}
+            ]
+        }
+    ]
+}

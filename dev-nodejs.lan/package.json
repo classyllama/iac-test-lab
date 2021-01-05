@@ -1,0 +1,23 @@
+{
+  "name": "example-cl-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "docker-compose build --no-cache"
+  },
+  "author": "Hunter Shaw",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
+    "pg": "^8.5.1",
+    "pg-pool": "^3.2.2",
+    "polka": "^0.5.2",
+    "sqlstring": "^2.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
