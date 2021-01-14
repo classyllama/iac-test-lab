@@ -2,13 +2,41 @@
 
 Uses Docker & Docker Compose to spin up a containerized NodeJS application. Should be used in combination w/ Heroku container registry to utilize identical containers for both development & production.
 
+### Install System Dependencies
+
+- Docker
+- Docker Compose
+
+#### Manual Install
+
+https://docs.docker.com/docker-for-mac/install/
+
+#### Install Using Brew
+
+    brew install --cask docker
+
+Open Dcoker Desktop app
+
+    open /Applications/Docker.app
+
+Enter user's password to grant Docker Desktop the ability to install networking components
+
 ### Instructions:
 
 #### To Run:
 
-1. Install any additional dependencies for the project using `npm i [dependency]`
-2. Build/Rebuild application container using `npm run build` - This runs `docker-compose --no-cache` which rebuilds the Dockerfile and re-installs node_modules/ inside the container container
-3. Spin up containers and start development with `docker-compose up`
+1. Install any additional dependencies for the project using
+
+        npm install
+
+2. Build/Rebuild application container which rebuilds the Dockerfile and re-installs node_modules/ inside the container container
+
+        docker-compose build --no-cache
+
+3. Spin up containers and start development
+
+        docker-compose up
+
 4. Application automatically restarts when code is edited
 5. Application should be visible on http://localhost
 6. Return to step 1 if additional dependencies are needed (CTRL+C first)

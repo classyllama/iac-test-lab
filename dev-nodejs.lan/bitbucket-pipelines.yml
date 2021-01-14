@@ -1,0 +1,45 @@
+# This file is used with BitBucket Pipelines to run through test and
+# build steps necessary to kick off a deployment to Heroku
+
+image: heroku/heroku:20
+
+check: &check
+  - step:
+      # Install NodeJS (from Nodesource)
+      # https://github.com/nodesource/distributions/blob/master/README.md
+      name: Application Checks
+      script:
+        - curl -sL https://deb.nodesource.com/setup_14.x | bash -
+        - apt-get install -y nodejs
+        - node -v
+        - npm run check
+
+package: &package
+  parallel:
+    - step:
+        name: Package Artifact for Deployment
+        script:
+          - git archive --format=tar.gz master -o application.tar.gz
+        artifacts:
+          - application.tar.gz
+
+deploy: &deploy
+  parallel:
+    - step:
+        name: Deploy to Heroku
+        deployment: production
+        script:
+          - pipe: atlassian/heroku-deploy:1.2.1
+            variables:
+              HEROKU_API_KEY: $HEROKU_API_KEY
+              HEROKU_APP_NAME: 'example-cl-app'
+              ZIP_FILE: 'application.tar.gz'
+
+pipelines:
+  default:
+  - <<: *check
+  branches:
+    master:
+    - <<: *check
+    - <<: *package
+    - <<: *deploy
