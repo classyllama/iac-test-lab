@@ -4,7 +4,7 @@
 # dev-centos8-latest.lan
 ##### ---------------------------
 # Latest on CentOS 8
-# Magento 2.4.0
+# Magento 2.4.2
 #
 # CentOS 8
 # PHP 7.4
@@ -22,7 +22,9 @@ app_domain: dev-centos8-latest.lan
 # --- Magento Demo Install
 magento_demo_config_overrides:
   MAGENTO_COMPOSER_PROJECT: magento/project-community-edition
-  MAGENTO_REL_VER: 2.4.0
+  MAGENTO_REL_VER: 2.4.2
+  MAGENTO_DEPLOY_MODE: developer
+  MAGENTO_FPC: redis
   REDIS_OBJ_HOST: "localhost"
   REDIS_OBJ_PORT: "6379"
   REDIS_OBJ_DB: "0"
