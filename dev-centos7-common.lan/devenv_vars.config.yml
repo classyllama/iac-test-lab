@@ -8,7 +8,7 @@
 #
 # CentOS 7
 # PHP 7.2
-# Nginx 1.16
+# Nginx 1.18
 # MySQL 5.6
 # ElasticSearch 6.x
 # Varnish 4.x
@@ -22,7 +22,9 @@ app_domain: dev-centos7-common.lan
 # --- Magento Demo Install
 magento_demo_config_overrides:
   MAGENTO_COMPOSER_PROJECT: magento/project-community-edition
-  MAGENTO_REL_VER: 2.3.5-p2
+  MAGENTO_REL_VER: "2.3.6"
+  MAGENTO_DEPLOY_MODE: "developer"
+  MAGENTO_FPC: "redis"
   REDIS_OBJ_HOST: "localhost"
   REDIS_OBJ_PORT: "6379"
   REDIS_OBJ_DB: "0"
@@ -48,7 +50,7 @@ use_geerlingguy_repo_remi: false
 use_classyllama_repo_php_appstream: false
 use_classyllama_repo_php_remi_modular: false
 php_version: 72
-php_enablerepo: "ius"
+php_enablerepo: "ius-archive"
 php_package_name_extra: "72u"
 php_default_modules:
   - bcmath
@@ -93,7 +95,7 @@ varnish_version: 41
 
 use_classyllama_repo_nginx: true
 use_classyllama_repo_nginx_appstream: false
-nginx_stream_version: "1.16"
+nginx_stream_version: "1.18"
 
 use_classyllama_multi_redis: true
 redis_package_name: "redis32u"
@@ -101,7 +103,7 @@ redis_enablerepo: "ius-archive"
 redis_version: 32
 
 use_elastic_elasticsearch: true
-es_version: 6.8.0
+es_version: 6.8.15
 
 
 # --- Additional Tools Configuration

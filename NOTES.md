@@ -7,12 +7,26 @@ Magento
     # setopt INTERACTIVE_COMMENTS
     
     declare -a dirs=(
-      "dev-centos7-common.lan"
-      "dev-centos7-latest.lan"
       "dev-centos7-old.lan"
+      "dev-centos7-common.lan"
+      "dev-centos7-transition.lan"
+      "dev-centos7-latest.lan"
       "dev-centos8-latest.lan"
       "dev-centos8-min.lan"
     )
+   
+   declare -a dirs=(
+      "dev-centos7-old.lan"
+      "dev-centos7-common.lan"
+      "dev-centos7-transition.lan"
+      "dev-centos7-latest.lan"
+    )
+   
+   declare -a dirs=(
+      "dev-centos8-latest.lan"
+      "dev-centos8-min.lan"
+    )
+   
     currentDir=$PWD
     for dir in "${dirs[@]}"; do
       cd ${dir}
@@ -26,12 +40,14 @@ Magento
       vagrant halt
       vagrant destroy -f
       rm -f ./*.vmdk
+      #rm -rf ./.cache
       vagrant box update
       gitman update
+      gitman lock
       
-      #(cd source/ && git pull)
-      #time (vagrant up && vagrant ssh -c "~/magento-demo/install-magento.sh config_site.json" -- -q)
-      #(cd source/provisioning/ && ansible-playbook -i ../persistent/inventory/devenv cache_sync.yml --diff)
+      (cd source/ && git pull)
+      time (vagrant up && vagrant ssh -c "~/magento-demo/install-magento.sh config_site.json" -- -q)
+      (cd source/provisioning/ && ansible-playbook -i ../persistent/inventory/devenv cache_sync.yml --diff)
       cd ${currentDir}
     done
 

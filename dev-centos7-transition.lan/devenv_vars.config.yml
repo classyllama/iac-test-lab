@@ -1,34 +1,28 @@
 ---
 
 ##### ---------------------------
-# dev-centos7-latest.lan
+# dev-centos7-transition.lan
 ##### ---------------------------
-# Latest on CentOS 7
-# Magento 2.4.0
+# Common on CentOS 7
+# Magento 2.3.7
 #
 # CentOS 7
-# PHP 7.4
+# PHP 7.3
 # Nginx 1.18
 # MySQL 5.7
 # ElasticSearch 7.x
 # Varnish 6.x
 # Redis 5.x
 
-varnish_data_storage_size: 512M
-mysqld_memory_percentage: 25
-es_heap_size: "512m"
-redis_obj_maxmem: 1gb
-php_fpm_pm_max_children: 10
-
 
 # --- System Configs
-app_domain: dev-centos7-latest.lan
+app_domain: dev-centos7-transition.lan
 
 
-# --- Magento Demo Configs
+# --- Magento Demo Install
 magento_demo_config_overrides:
   MAGENTO_COMPOSER_PROJECT: magento/project-community-edition
-  MAGENTO_REL_VER: "2.4.2-p1"
+  MAGENTO_REL_VER: "2.3.7"
   MAGENTO_DEPLOY_MODE: "developer"
   MAGENTO_FPC: "redis"
   REDIS_OBJ_HOST: "localhost"
@@ -37,6 +31,9 @@ magento_demo_config_overrides:
   REDIS_SES_HOST: "localhost"
   REDIS_SES_PORT: "6379"
   REDIS_SES_DB: "1"
+  REDIS_FPC_HOST: "localhost"
+  REDIS_FPC_PORT: "6379"
+  REDIS_FPC_DB: "2"
   VARNISH_HOST: "localhost"
   VARNISH_PORT: "6081"
   SEARCH_ENGINE: "elasticsearch7"
@@ -45,17 +42,16 @@ magento_demo_config_overrides:
   ELASTIC_ENABLE_AUTH: "1"
   ELASTIC_USERNAME: "elastic"
   ELASTIC_PASSWORD: "changeme"
-  SHOULD_SETUP_TFA: "true"
 
 
 # --- Tech Stack (Services) Configuration
 use_classyllama_repo_ius: true
-use_geerlingguy_repo_remi: true
+use_geerlingguy_repo_remi: false
 use_classyllama_repo_php_appstream: false
 use_classyllama_repo_php_remi_modular: false
-php_version: 74
-php_enablerepo: "remi-php{{ php_version }}"
-php_package_name_extra: ""
+php_version: 73
+php_enablerepo: ""
+php_package_name_extra: "73"
 php_default_modules:
   - bcmath
   - cli
@@ -66,22 +62,20 @@ php_default_modules:
   - intl
   - json
   - mbstring
-  # - mcrypt      # installed on 7.1 and prior
-  - sodium      # installed on 7.2 and later
   - mysqlnd
   - opcache
   - pdo
+  # - pear # Requirement for PECL
   - pecl-redis # Not required
   - process
+  - sodium # Not required
   - soap
   - xml
   - xmlrpc
-  - pecl-zip
-  - pear # Requirement for PECL
+  # - pecl-zip
 php_additional_modules:
   - xdebug
-  - pecl-imagick
-use_imagemagick: true
+  # - pecl-imagick
 
 use_classyllama_repo_python_appstream: false
 python_package_name: python # CentOS 7 uses Python 2.7
@@ -103,11 +97,14 @@ use_classyllama_repo_nginx: true
 use_classyllama_repo_nginx_appstream: false
 nginx_stream_version: "1.18"
 
-# use_classyllama_repo_ius: true
 use_classyllama_multi_redis: true
 redis_package_name: "redis5"
-redis_enablerepo: ""
+redis_enablerepo: "ius-archive"
 redis_version: 50
 
 use_elastic_elasticsearch: true
-es_version: 7.10.0
+es_version: 7.12.1
+
+
+# --- Additional Tools Configuration
+use_create_www_projects_dir: false

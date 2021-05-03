@@ -9,15 +9,15 @@ sources:
     link:
     scripts:
       - ./gitman_init.sh
+groups:
+  -
 sources_locked:
   - name: devenv
     type: git
     repo: git@github.com:classyllama/devenv-vagrant.git
     sparse_paths:
       -
-    rev: 0f899b4cd44d8c6b30c10c409e1f6d028c5ab01f
+    rev: 882b042c295069d572fa8733f3c3330ad2c3ca55
     link:
     scripts:
       - ./gitman_init.sh
-groups:
-  -

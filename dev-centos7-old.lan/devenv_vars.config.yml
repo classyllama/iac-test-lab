@@ -22,7 +22,9 @@ app_domain: dev-centos7-old.lan
 # --- Magento Demo Install
 magento_demo_config_overrides:
   MAGENTO_COMPOSER_PROJECT: magento/project-community-edition
-  MAGENTO_REL_VER: 2.2.11
+  MAGENTO_REL_VER: "2.2.11"
+  MAGENTO_DEPLOY_MODE: "developer"
+  MAGENTO_FPC: "redis"
   REDIS_OBJ_HOST: "localhost"
   REDIS_OBJ_PORT: "6379"
   REDIS_OBJ_DB: "0"
