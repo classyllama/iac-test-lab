@@ -87,9 +87,9 @@ python_software_packages:
   - "{{ python_package_name }}-devel"
   - "{{ python_package_name }}-PyMySQL"
 
-use_classyllama_mariadb: true
-use_classyllama_percona: false
-mariadb_version: "10.3"
+use_classyllama_mariadb: false
+use_classyllama_percona: true
+percona_version: 80
 
 use_classyllama_repo_varnish: true
 use_classyllama_varnish: true

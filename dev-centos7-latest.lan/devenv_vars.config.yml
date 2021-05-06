@@ -93,7 +93,7 @@ python_software_packages:
 
 use_classyllama_mariadb: false
 use_classyllama_percona: true
-percona_version: 57
+percona_version: 80
 
 use_classyllama_repo_varnish: true
 use_classyllama_varnish: true
@@ -110,4 +110,4 @@ redis_enablerepo: ""
 redis_version: 50
 
 use_elastic_elasticsearch: true
-es_version: 7.10.0
+es_version: 7.12.1
